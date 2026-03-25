@@ -1,25 +1,11 @@
 {
-  "editor.formatOnSave": true,
-  "vetur.validation.template": false,
-  "vetur.format.defaultFormatter.scss": "prettier",
-  "vetur.format.defaultFormatter.css": "prettier",
-  "vetur.format.defaultFormatter.html": "prettier",
-  "vetur.format.defaultFormatter.js": "prettier",
-  "prettier.eslintIntegration": true,
-  "eslint.autoFixOnSave": true,
-  "eslint.options": {
-    "extensions": [".html", ".js", ".vue", ".jsx"]
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts, typed-router.d.ts",
+    "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .oxfmt*, .prettier*, prettier*, .editorconfig"
   },
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    {
-      "language": "vue",
-      "autoFix": true
-    }
-  ],
-  "javascript.validate.enable": false,
-  "javascript.format.enable": false,
-  "editor.formatOnPaste": true,
-  "editor.formatOnType": false
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  }
 }
