@@ -1,53 +1,97 @@
-# vue-project
+# Image Colors Extractor
 
-This template should help get you started developing with Vue 3 in Vite.
+A web application built with **Vue 3** + **TypeScript** + **Vite** that extracts every unique color from an image and lets you download the result as a `.txt` file.
 
-## Recommended IDE Setup
+🔗 **[Live demo](https://robinferrari.ch/image-colors-extractor/)**
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Features
 
-## Recommended Browser Setup
+- Upload any image directly in the browser (no server required)
+- Scans every pixel and collects all unique hex color codes
+- Displays a real-time progress bar during extraction
+- Shows the total number of distinct colors found
+- Detects dominant palette colors using [node-vibrant](https://github.com/Vibrant-Colors/node-vibrant) (Vibrant, Muted, Dark Vibrant, etc.)
+- Downloads the full color list as a plain-text file (`imageData.txt`)
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+> ⚠️ **Performance note** — processing a large image (e.g. 1900×1258 px) can take around 10 minutes. You can stop the extraction at any time.
 
-## Type Support for `.vue` Imports in TS
+## Tech Stack
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+| Layer | Technology |
+|---|---|
+| Framework | Vue 3 (Composition API, `<script setup>`) |
+| Language | TypeScript |
+| Build tool | Vite |
+| Color palette | node-vibrant v4 |
+| File download | file-saver |
+| Unit tests | Vitest + Vue Test Utils |
+| E2E tests | Playwright |
+| Linting | ESLint + oxlint |
 
-## Customize configuration
+## Getting Started
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### Prerequisites
 
-## Project Setup
+- [Node.js](https://nodejs.org/) ≥ 18
+- [pnpm](https://pnpm.io/)
+
+### Install dependencies
 
 ```sh
 pnpm install
 ```
 
-### Compile and Hot-Reload for Development
+### Start the development server
 
 ```sh
 pnpm dev
 ```
 
-### Type-Check, Compile and Minify for Production
+The app will be available at `http://localhost:5173`.
+
+### Build for production
 
 ```sh
 pnpm build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+### Preview the production build
+
+```sh
+pnpm preview
+```
+
+## Testing
+
+### Unit tests (Vitest)
 
 ```sh
 pnpm test:unit
 ```
 
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
+### End-to-end tests (Playwright)
+
+```sh
+pnpm test:e2e
+```
+
+### Lint
+
+```sh
+pnpm lint
+```
+
+## How It Works
+
+1. Pick an image using the file input.
+2. The image is drawn onto an off-screen `<canvas>` element.
+3. The app reads pixel data line by line via `CanvasRenderingContext2D.getImageData()`, converting each pixel to a hex code and storing it in a `Set` (ensuring uniqueness).
+4. node-vibrant independently analyses the image to extract a dominant color palette.
+5. Once extraction is complete (or stopped manually), you can download all collected hex codes as a comma-separated `.txt` file.
+
+## License
+
+MIT
 
 ```sh
 # Install browsers for the first run
